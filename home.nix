@@ -10,6 +10,7 @@ in
 {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
+    inputs.spicetify-nix.homeManagerModules.default
   ];
   sops = {
   	defaultSopsFile = ./secrets.yaml;
@@ -42,7 +43,6 @@ in
 	waybar
   	fastfetch
 	lua-language-server
-	spotify
 	kdePackages.dolphin
 	hyprpaper
 	jetbrains-mono
@@ -93,6 +93,10 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.spicetify = {
+  	enable = true;
+  };
+
   programs.chromium = {
     enable = true;
     package = pkgs.brave;
@@ -109,7 +113,7 @@ in
 
     shellAliases = {
       hms = "home-manager switch --flake ${flakePath}";
-      nsw = "sudo nixos-rebuild switch --flake ${flakePath}#nixos";
+      nsw = "sudo nixos-rebuild switch --flake ${flakePath}#$(hostname)";
       all-switch = "nsw && hms";
     
       update = "pushd ${flakePath} && nix flake update && nsw && hms && popd";
