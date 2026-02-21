@@ -1,0 +1,96 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "/home/gofer/fastfetchAssets/felix1.gif",
+        "type": "kitty",
+        "width": 30,
+        "height": 15,
+	"padding": {
+		"top": 2,
+		"left": 2
+	}
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌──────────────────────Hardware──────────────────────┐"
+        },
+        {
+            "type": "host",
+            "key": " PC",
+            "keyColor": "green"
+        },
+        {
+            "type": "cpu",
+            "key": "│ ├",
+            "keyColor": "green"
+        },
+        {
+            "type": "gpu",
+            "key": "│ ├󰍛",
+            "keyColor": "green"
+        },
+        {
+            "type": "memory",
+            "key": "│ ├󰍛",
+            "keyColor": "green"
+        },
+        {
+            "type": "disk",
+            "key": "└ └",
+            "keyColor": "green"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m┌──────────────────────Software──────────────────────┐"
+        },
+        {
+            "type": "os",
+            "key": " OS",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "kernel",
+            "key": "│ ├",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "packages",
+            "key": "│ ├󰏖",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "shell",
+            "key": "│ ├",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "wm",
+            "key": "│ ├",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "terminal",
+            "key": "└ └",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+        },
+        {
+            "type": "uptime",
+            "key": "  Uptime ",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "colors",
+            "paddingLeft": 2,
+            "symbol": "circle"
+        }
+    ]
+}
