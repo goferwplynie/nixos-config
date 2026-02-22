@@ -20,25 +20,6 @@
 
   #bluetooth
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
-  services.pulseaudio.enable = false;
-
-  security.rtkit.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-
-  };
-  services.openssh.enable = true;
-
-  services.displayManager.ly = {
-    enable = true;
-  };
 
   networking.hostName = "boykisser"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -110,8 +91,46 @@
     defaultEditor = true;
   };
   programs.hyprland.enable = true;
-
   # List services that you want to enable:
+
+  services.flatpak = {
+    enable = true;
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
+
+    remotes = [
+      {
+        name = "flathub";
+	location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+
+    packages = [
+      "org.vinegarhq.Sober"
+    ];
+  };
+
+  services.blueman.enable = true;
+
+  services.pulseaudio.enable = false;
+
+  security.rtkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+
+  };
+  services.openssh.enable = true;
+
+  services.displayManager.ly = {
+    enable = true;
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

@@ -9,6 +9,7 @@ in
 {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
     ./modules/terminal 
     ./modules/apps
   ];
@@ -64,8 +65,10 @@ in
     EDITOR = "nvim";
     GIT_AUTHOR_EMAIL = "$(cat ${config.sops.secrets.git_email.path})";
     GIT_COMMITTER_EMAIL = "$(cat ${config.sops.secrets.git_email.path})";
+    XDG_DATA_DIRS = "${homePath}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
 }
