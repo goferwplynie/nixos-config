@@ -1,5 +1,6 @@
 local servers = {
 	"lua_ls",
+	"nixd"
 }
 
 for _, server in ipairs(servers) do

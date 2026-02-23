@@ -3,7 +3,6 @@
 let
   homePath = "/home/gofer";
   dotfilesPath = "${homePath}/.config/home-manager/dotfiles";
-  githubUsername = "gofer";
   userId = "1000";
 in
 {
@@ -40,12 +39,15 @@ in
   	rofi
 	waybar
   	fastfetch
-	lua-language-server
 	kdePackages.dolphin
 	hyprpaper
 	jetbrains-mono
+	easyeffects
+	lua-language-server
+	nixd
+	alejandra
   ];
-  
+
   home.file = {
     ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/waybar";
     ".config/fastfetch".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/fastfetch";
@@ -66,6 +68,14 @@ in
     GIT_AUTHOR_EMAIL = "$(cat ${config.sops.secrets.git_email.path})";
     GIT_COMMITTER_EMAIL = "$(cat ${config.sops.secrets.git_email.path})";
     XDG_DATA_DIRS = "${homePath}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS";
+  };
+
+  xdg.desktopEntries.sober = {
+    name = "Sober";
+    exec = "flatpak run org.vinegarhq.Sober";
+    icon = "org.vinegarhq.Sober";
+    comment = "Roblox Client";
+    categories = [ "Game" ];
   };
 
   # Let Home Manager install and manage itself.

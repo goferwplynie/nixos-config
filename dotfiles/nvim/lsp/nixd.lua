@@ -1,21 +1,23 @@
----@type vim.lsp.Config
 return {
-	cmd = { "nixd" },
-	root_markers = { "flake.nix", ".git" },
-	filetypes = { "nix" },
-	settings = {
-    	nixd = {
-      		formatting = {
-        		command = { "nixfmt" },
-      		},
-      		options = {
-        	nixos = {
-            		expr = '(builtins.getFlake "/home/gofer/dotfiles").nixosConfigurations.nixos.options',
-        	},
-        	home_manager = {
-            		expr = '(builtins.getFlake "/home/gofer/dotfiles").homeConfigurations."gofer".options',
-        	},
+  cmd = { "nixd" },
+  root_markers = { "flake.nix", ".git" },
+  filetypes = { "nix" },
+  settings = {
+    nixd = {
+      nixpkgs = {
+        expr = "import <nixpkgs> { }",
       },
-    },
-  },
+      formatting = {
+        command = { "alejandra" },
+      },
+      options = {
+        nixos = {
+          expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.boykisser.options',
+        },
+        home_manager = {
+          expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."gofer".options',
+        },
+      },
+    }
+  }
 }
