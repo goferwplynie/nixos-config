@@ -1,0 +1,34 @@
+{
+    "layer": "top",
+    "modules-left": ["cava", "mpris"],
+    "modules-center": [],
+    "modules-right": ["battery", "clock"],
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+    "cava": {
+        "framerate": 60,
+        "autosens": 1,
+        "bars": 14,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pipewire",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": false,
+        "noise_reduction": 0.77,
+        "input_delay": 2,
+        "format-icons" : [" ", "▂", "▃", "▄", "▅", "▆", "▇", "█" ]
+    },
+    "mpris": {
+	"format": "playing: {artist} ~ {title}",
+	"format-paused": "paused: {artist} ~ {title}"
+    }
+}

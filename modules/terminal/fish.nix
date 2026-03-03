@@ -6,13 +6,17 @@ in
   programs.fish = {
     enable = true;
 
+    shellInit = ''
+      set -Ua fish_user_paths $HOME/.local/bin
+    '';
+
     shellAliases = {
       hms = "home-manager switch --flake ${flakePath}";
       nsw = "sudo nixos-rebuild switch --flake ${flakePath}#$(hostname)";
       all-switch = "nsw && hms";
     
       update = "pushd ${flakePath} && nix flake update && nsw && hms && popd";
-      clean = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
+      clean = "nix-env --delete-generations old && nix-collect-garbage -d && sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations old && sudo nix-collect-garbage -d";
     };
     
     interactiveShellInit = ''

@@ -1,22 +1,33 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  config,
+  pkgs,
+  ...
+}: {
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./modules/nvidia.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./modules/nvidia.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_zen;
+
+  boot.kernelModules = ["uvcvideo" "videodev"];
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback.out
+  ];
+
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=10 card_label="Virtual Camera" exclusive_caps=1
+  '';
 
   #bluetooth
   hardware.bluetooth.enable = true;
@@ -62,7 +73,7 @@
   users.users.gofer = {
     isNormalUser = true;
     description = "cute femboy >w<";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel" "video" "render" "adbusers"];
     packages = with pkgs; [];
   };
 
@@ -72,14 +83,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    	kitty 
-	lshw
-	pavucontrol
-	kdePackages.qtsvg
-	gamemode
-  	protonup-qt 
- ];
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    kitty
+    lshw
+    pavucontrol
+    kdePackages.qtsvg
+    gamemode
+    protonup-qt
+    unzip
+
+    v4l-utils
+    usbutils 
+    pciutils 
+    droidcam 
+    adwaita-icon-theme 
+    android-tools
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -88,6 +107,8 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -95,7 +116,7 @@
   programs.hyprland.enable = true;
 
   programs.steam = {
-  enable = true;
+    enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
@@ -113,7 +134,7 @@
     remotes = [
       {
         name = "flathub";
-	location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
       }
     ];
 
@@ -134,7 +155,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-
   };
   services.openssh.enable = true;
 
@@ -158,5 +178,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }

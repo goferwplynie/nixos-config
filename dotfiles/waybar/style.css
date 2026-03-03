@@ -1,0 +1,23 @@
+@import "../../.cache/wallust/waybar.css";
+*{
+    font-family: "JetBrainsMono Nerd Font"; 
+    color: @fg; 
+}
+
+window#waybar{
+    background-color: rgba(0,0,0,0);
+}
+#cava, #mpris {
+    margin: 4px 6px;
+    border: 2px solid alpha(@accent, 0.2);
+    padding: 6px 12px;
+    border-radius: 12px;
+    background-color: alpha(@bg,0.6);
+}
+
+#cava{
+}
+
+#mpris{
+
+}

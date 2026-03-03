@@ -4,6 +4,8 @@ let
   homePath = "/home/gofer";
   dotfilesPath = "${homePath}/.config/home-manager/dotfiles";
   userId = "1000";
+  scriptsDir = ./dotfiles/scripts;
+  allScripts = builtins.attrNames (builtins.readDir scriptsDir);
 in
 {
   imports = [
@@ -37,7 +39,6 @@ in
 
   home.packages = with pkgs;[
   	rofi
-	waybar
   	fastfetch
 	kdePackages.dolphin
 	hyprpaper
@@ -46,6 +47,11 @@ in
 	lua-language-server
 	nixd
 	alejandra
+	usbutils
+	cava
+	playerctl
+	swww
+	wallust
   ];
 
   home.file = {
@@ -55,13 +61,17 @@ in
     ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/kitty";
     ".config/.wallpapers".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/.wallpapers";
     ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/hypr";
-
-   # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
+    ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/rofi";
+    ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
+    ".config/cava".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
+  } // #loop >:3
+  builtins.listToAttrs (map (name: {
+      name = ".local/bin/${name}";
+      value = {
+        source = scriptsDir + "/${name}";
+        executable = true;
+      };
+    }) allScripts);
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -70,15 +80,13 @@ in
     XDG_DATA_DIRS = "${homePath}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS";
   };
 
-  xdg.desktopEntries.sober = {
-    name = "Sober";
-    exec = "flatpak run org.vinegarhq.Sober";
-    icon = "org.vinegarhq.Sober";
-    comment = "Roblox Client";
-    categories = [ "Game" ];
-  };
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.waybar = {
+    enable = true;
+
+    package = pkgs.waybar.override{ cavaSupport = true; };
+  };
 
 }

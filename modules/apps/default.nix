@@ -5,6 +5,7 @@
     ./flameshot.nix
     ./obs.nix
     ./browser.nix
+    ./ncspot.nix
   ];
 
   home.packages = with pkgs;[
