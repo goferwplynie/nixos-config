@@ -63,7 +63,7 @@ in
     ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/hypr";
     ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/rofi";
     ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
-    ".config/cava".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
+    ".config/cava".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/cava";
   } // #loop >:3
   builtins.listToAttrs (map (name: {
       name = ".local/bin/${name}";
