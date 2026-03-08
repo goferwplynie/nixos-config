@@ -5,4 +5,4 @@ palette = "dark16"
 [templates]
 waybar = { template = "waybar.css", target = "~/.cache/wallust/waybar.css" }
 kitty  = { template = "kitty.conf", target = "~/.cache/wallust/kitty.conf" }
-cava   = { template = "cava.conf", target = "~/.cache/wallust/cava-colors" }
+cava   = { template = "cava.conf", target = "~/.config/cava/config" }

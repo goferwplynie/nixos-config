@@ -1,23 +1,61 @@
 @import "../../.cache/wallust/waybar.css";
-*{
-    font-family: "JetBrainsMono Nerd Font"; 
+@define-color normal #a6e3a1;
+@define-color warning #fab387;
+@define-color critical #f38ba8;
+* {
+    font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", sans-serif;
+    font-weight: bold;
     color: @fg; 
 }
 
 window#waybar{
     background-color: rgba(0,0,0,0);
 }
-#cava, #mpris {
-    margin: 4px 6px;
-    border: 2px solid alpha(@accent, 0.2);
+#cava, #mpris, #hardware, #wireless, #clock{
     padding: 6px 12px;
+}
+
+#cava, #mpris, #workspaces, #window, #hardware, #wireless, #clock{
     border-radius: 12px;
     background-color: alpha(@bg,0.6);
+    border: 2px solid alpha(@accent, 0.2);
+    margin: 4px 6px;
 }
 
-#cava{
+#workspaces{
+	padding: 3px 6px;
 }
 
-#mpris{
+#workspaces button.active{
+	padding: 0 4px;
+	background-color: @fg;
+}
 
+#workspaces button{
+	background-color: @color13;
+	padding: 0;
+	margin: 1px;
+}
+
+#workspaces button.empty{
+	background-color: alpha(@color13, 0.5)
+}
+#workspaces button.empty.active{
+	background-color: alpha(@fg, 0.5)
+}
+
+#cpu, #battery, #disk, #memory{
+	color: @normal;
+}
+
+#cpu.warning, #battery.warning, #disk.warning, #memory.warning{
+	color: @warning;
+}
+
+#cpu.critical, #disk.critical, #memory.critical{
+	color: @critical;
+}
+
+#battery.critical:not(.charging){
+	color: @critical
 }

@@ -37,6 +37,8 @@ in
   # release notes.
   home.stateVersion = "25.11"; # Please read the comment before changing.
 
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs;[
   	rofi
   	fastfetch
@@ -52,6 +54,10 @@ in
 	playerctl
 	swww
 	wallust
+	nerd-fonts.jetbrains-mono
+	jetbrains.idea
+	podman-compose
+	gnumake
   ];
 
   home.file = {
@@ -63,7 +69,6 @@ in
     ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/hypr";
     ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/rofi";
     ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
-    ".config/cava".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/cava";
   } // #loop >:3
   builtins.listToAttrs (map (name: {
       name = ".local/bin/${name}";
@@ -75,9 +80,8 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    GIT_AUTHOR_EMAIL = "$(cat ${config.sops.secrets.git_email.path})";
-    GIT_COMMITTER_EMAIL = "$(cat ${config.sops.secrets.git_email.path})";
     XDG_DATA_DIRS = "${homePath}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
   # Let Home Manager install and manage itself.

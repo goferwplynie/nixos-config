@@ -1,34 +1,120 @@
 {
     "layer": "top",
     "modules-left": ["cava", "mpris"],
-    "modules-center": [],
-    "modules-right": ["battery", "clock"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["hyprland/window","group/hardware", "group/wireless", "clock"],
+    "group/wireless":{
+	"modules":[
+		"bluetooth",
+		"network"
+	],
+	"orientation": "horizontal"
+    },
+    "bluetooth": {
+	"format": "",
+	"format-off": "󰂲",
+	"format-on": "",
+	"format-connected-battery": "{device_battery_percentage}% ",
+	"tooltip-format": "{device_alias}",
+	"tooltip-format-connected-battery": "{device_alias} 󰥈 {device_battery_percentage}%" 
+    },
+    "network":{
+	    "format-wifi": " {signalStrength}% {icon}",
+	    "format-ethernet": "󰈀 {signalStrength}% {icon}",
+	    "format-disconnected": "󰪎 TwT",
+	    "format-disabled": "󰪎 disabled TwT",
+	    "format-icons":[
+		    "&gt;w&lt;", ":3c", ":3", "&gt;///&lt;", ":c", "T~T"
+	    ],
+	    "tooltip-format": "{essid}\n {bandwidthUpBits}  {bandwidthDownBits}"
+    },
+    "group/hardware": {
+	"modules": [
+		"battery",
+		"cpu",
+		"disk",
+		"memory",
+		"wireplumber"
+	],
+	"orientation": "horizontal"
+    },
+    "cpu": {
+	    "format": " {usage}% ",
+	    "states": {
+		"warning": 70,
+		"critical": 90
+	    }
+    },
+    "disk":{
+	    "format": " {percentage_used}% ",
+	    "states":{
+		    "warning": 80,
+		    "critical": 95
+	    }
+    },
+    "memory": {
+	    "format": " {percentage}% ",
+	    "states": {
+		    "warning": 75,
+		    "critical": 90
+	    }
+    },
+    "wireplumber":{
+	"format": "{icon} {volume}%",
+    	"format-muted": "󰝟 muted",
+    	"format-icons": {
+        	"headphone": "",
+        	"default": ["", "", ""]
+    	}
+    },
     "battery": {
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
+        "format": "{icon}{capacity}% ",
+        "format-icons": [" ", " ", " ", " ", " "],
+	"states": {
+        	"warning": 30,
+        	"critical": 15
+    	}
     },
     "clock": {
         "format-alt": "{:%a, %d. %b  %H:%M}"
     },
     "cava": {
         "framerate": 60,
-        "autosens": 1,
         "bars": 14,
-        "lower_cutoff_freq": 50,
-        "higher_cutoff_freq": 10000,
-        "method": "pipewire",
         "source": "auto",
         "stereo": true,
         "reverse": false,
         "bar_delimiter": 0,
-        "monstercat": false,
-        "waves": false,
         "noise_reduction": 0.77,
         "input_delay": 2,
-        "format-icons" : [" ", "▂", "▃", "▄", "▅", "▆", "▇", "█" ]
+        "format-icons" : [" ", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+	"gradient": 1
     },
     "mpris": {
-	"format": "playing: {artist} ~ {title}",
-	"format-paused": "paused: {artist} ~ {title}"
+	"format": "{status}: {dynamic}",
+	"format-paused": "paused: {artist} ~ {title}",
+	"dynamic-len": 30,
+	"dynamic-separator": " ~ ",
+	"player": "spotify_player"
+    },
+    "hyprland/workspaces": {
+	"format": ""	
+    },
+    "hyprland/window": {
+	"format": "{class} {title}",
+	"max-length": 25,
+    	"rewrite": {
+		" ": "󰴈 beautiful wallpaper :3",
+        
+        	"kitty.*": "󰄛 meeow meow mrrp~ :3",
+		"kitty nvim.*": " meowing &gt;^w^&lt;",
+        
+        	"(.*) - Mozilla Firefox": "󰈹 sillynet &gt;w&lt;",
+        	"brave-browser (.*)": "󰖟 sillynet &gt;w&lt;",
+        
+        	"vesktop.*": "󰙯 femboycord",
+        
+        	"spotify_player (.*)": " peak music :3"
+    	}
     }
 }

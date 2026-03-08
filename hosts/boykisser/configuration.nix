@@ -73,7 +73,7 @@
   users.users.gofer = {
     isNormalUser = true;
     description = "cute femboy >w<";
-    extraGroups = ["networkmanager" "wheel" "video" "render" "adbusers"];
+    extraGroups = ["networkmanager" "wheel" "video" "render" "adbusers" "podman"];
     packages = with pkgs; [];
   };
 
@@ -93,10 +93,10 @@
     unzip
 
     v4l-utils
-    usbutils 
-    pciutils 
-    droidcam 
-    adwaita-icon-theme 
+    usbutils
+    pciutils
+    droidcam
+    adwaita-icon-theme
     android-tools
   ];
 
@@ -108,6 +108,14 @@
   #   enableSSHSupport = true;
   # };
 
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   programs.neovim = {
     enable = true;
@@ -122,6 +130,8 @@
     localNetworkGameTransfers.openFirewall = true;
     gamescopeSession.enable = true;
   };
+
+  programs.nix-ld.enable = true;
   # List services that you want to enable:
 
   services.flatpak = {
