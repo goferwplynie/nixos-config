@@ -1,6 +1,7 @@
 { ... }:
 let
   flakePath = "~/.config/home-manager";
+  fastfetchPath = "~/.config/home-manager/dotfiles/fastfetch";
 in
 {
   programs.fish = {
@@ -23,7 +24,7 @@ in
       set -gx EDITOR nvim
       set -gx VISUAL nvim
       set -g fish_greeting - ""
-      kitten icat -n --align left --scale-up --place 30x30@2x2 ~/fastfetchAssets/felix1.gif | fastfetch --logo-width 30 --raw -
+      kitten icat -n --align left --scale-up --place 30x30@2x2 ${fastfetchPath}/felix1.gif | fastfetch --logo-width 30 --raw -
     '';
   };
 }
