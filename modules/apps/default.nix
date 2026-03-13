@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./vesktop.nix
     ./flameshot.nix
@@ -10,8 +10,18 @@
   home.packages = with pkgs; [
     spotify
     kdePackages.dolphin
+    kdePackages.kio-extras
+    kdePackages.kio-admin
     easyeffects
     postman
     htop
+    yazi
+    mako
   ];
+
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    notify = true;
+  };
 }

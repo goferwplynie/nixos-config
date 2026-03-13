@@ -31,6 +31,14 @@
             ./hosts/boykisser/configuration.nix
           ];
         };
+        cutie = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+	    inputs.nix-flatpak.nixosModules.nix-flatpak
+            ./hosts/cutie/configuration.nix
+          ];
+        };
       };
 
       homeConfigurations."gofer" = home-manager.lib.homeManagerConfiguration {
