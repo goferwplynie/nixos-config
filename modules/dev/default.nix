@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
+  imports = [
+    ./nixvim
+  ];
   home.packages = with pkgs; [
     lua-language-server
     nixd

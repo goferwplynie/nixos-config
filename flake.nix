@@ -11,42 +11,49 @@
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      mkPkgs = pkgs: import pkgs {
+  outputs = {
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
+    system = "x86_64-linux";
+    mkPkgs = pkgs:
+      import pkgs {
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs = mkPkgs nixpkgs;
-    in {
-      nixosConfigurations = {
-        boykisser = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-	    inputs.nix-flatpak.nixosModules.nix-flatpak
-            ./hosts/boykisser/configuration.nix
-          ];
-        };
-        cutie = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-	    inputs.nix-flatpak.nixosModules.nix-flatpak
-            ./hosts/cutie/configuration.nix
-          ];
-        };
-      };
-
-      homeConfigurations."gofer" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs; };
+    pkgs = mkPkgs nixpkgs;
+  in {
+    nixosConfigurations = {
+      boykisser = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs;};
         modules = [
-          ./home.nix
+          inputs.nix-flatpak.nixosModules.nix-flatpak
+          ./hosts/boykisser/configuration.nix
+        ];
+      };
+      cutie = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs;};
+        modules = [
+          inputs.nix-flatpak.nixosModules.nix-flatpak
+          ./hosts/cutie/configuration.nix
         ];
       };
     };
+
+    homeConfigurations."gofer" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = {inherit inputs;};
+      modules = [
+        ./home.nix
+      ];
+    };
+  };
 }
