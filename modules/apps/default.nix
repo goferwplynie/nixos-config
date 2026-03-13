@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [
     ./vesktop.nix
     ./flameshot.nix
@@ -8,7 +7,11 @@
     ./ncspot.nix
   ];
 
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     spotify
+    kdePackages.dolphin
+    easyeffects
+    postman
+    htop
   ];
 }

@@ -98,6 +98,9 @@
     droidcam
     adwaita-icon-theme
     android-tools
+
+    go
+    gcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

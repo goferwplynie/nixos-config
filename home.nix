@@ -1,28 +1,33 @@
-{ config, pkgs, inputs, ... }:
-
-let
+{
+  config,
+  inputs,
+  ...
+}: let
   homePath = "/home/gofer";
   dotfilesPath = "${homePath}/.config/home-manager/dotfiles";
   userId = "1000";
   scriptsDir = ./dotfiles/scripts;
   allScripts = builtins.attrNames (builtins.readDir scriptsDir);
-in
-{
+in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
-    ./modules/terminal 
+    ./modules/terminal
     ./modules/apps
+    ./modules/desktop
+    ./modules/dev
+    ./modules/fonts
   ];
+
   sops = {
-  	defaultSopsFile = ./secrets.yaml;
-	age.sshKeyPaths = [ "${homePath}/.ssh/id_ed25519" ]; 
-	defaultSymlinkPath = "${homePath}/.secrets";
-  	defaultSecretsMountPoint = "/run/user/${userId}/secrets.d";
-	secrets = {
-		git_email = {};
-		github_token = {};
-	};
+    defaultSopsFile = ./secrets.yaml;
+    age.sshKeyPaths = ["${homePath}/.ssh/id_ed25519"];
+    defaultSymlinkPath = "${homePath}/.secrets";
+    defaultSecretsMountPoint = "/run/user/${userId}/secrets.d";
+    secrets = {
+      git_email = {};
+      github_token = {};
+    };
   };
 
   home.username = "gofer";
@@ -37,46 +42,26 @@ in
   # release notes.
   home.stateVersion = "25.11"; # Please read the comment before changing.
 
-  fonts.fontconfig.enable = true;
-
-  home.packages = with pkgs;[
-  	rofi
-  	fastfetch
-	kdePackages.dolphin
-	hyprpaper
-	jetbrains-mono
-	easyeffects
-	lua-language-server
-	nixd
-	alejandra
-	usbutils
-	cava
-	playerctl
-	swww
-	wallust
-	nerd-fonts.jetbrains-mono
-	jetbrains.idea
-	podman-compose
-	gnumake
-  ];
-
-  home.file = {
-    ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/waybar";
-    ".config/fastfetch".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/fastfetch";
-    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nvim";
-    ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/kitty";
-    ".config/.wallpapers".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/.wallpapers";
-    ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/hypr";
-    ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/rofi";
-    ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
-  } // #loop >:3
-  builtins.listToAttrs (map (name: {
-      name = ".local/bin/${name}";
-      value = {
-        source = scriptsDir + "/${name}";
-        executable = true;
-      };
-    }) allScripts);
+  home.file =
+    {
+      ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/waybar";
+      ".config/fastfetch".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/fastfetch";
+      ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/nvim";
+      ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/kitty";
+      ".config/.wallpapers".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/.wallpapers";
+      ".config/hypr".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/hypr";
+      ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/rofi";
+      ".config/wallust".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/wallust";
+    }
+    // #loop >:3
+    builtins.listToAttrs (map (name: {
+        name = ".local/bin/${name}";
+        value = {
+          source = scriptsDir + "/${name}";
+          executable = true;
+        };
+      })
+      allScripts);
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -86,11 +71,4 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  programs.waybar = {
-    enable = true;
-
-    package = pkgs.waybar.override{ cavaSupport = true; };
-  };
-
 }
