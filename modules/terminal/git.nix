@@ -5,20 +5,34 @@ in {
     [user]
         email = ${config.sops.placeholder.git_email}
   '';
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github.com" = {
+        user = "git";
+        identityFile = "/home/${githubUsername}/.ssh/github/id_ed25519";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
 
-    # 2. Mówimy Gitowi, żeby "wessał" ten wygenerowany przez SOPSa plik
     includes = [
       {path = config.sops.templates."git-credentials.conf".path;}
     ];
 
     settings = {
-      # Tutaj ląduje Twoja nazwa użytkownika (zamiast starego userName)
       user.name = "${githubUsername}";
 
-      # Twój genialny trik z helperem
       credential.helper = "!f() { echo \"password=$(cat ${config.sops.secrets.github_token.path})\"; }; f";
+
+      gpg.format = "ssh";
+      user.signingkey = "/home/${githubUsername}/.ssh/github/id_ed25519.pub";
+      commit.gpgsign = true;
+
+      "url.git@github.com:".insteadOf = "https://github.com/";
     };
   };
 }
