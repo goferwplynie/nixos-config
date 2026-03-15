@@ -101,6 +101,8 @@
 
     go
     gcc
+    libsecret
+    gnome-keyring
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -178,6 +180,13 @@
 
   services.udisks2.enable = true;
   security.polkit.enable = true;
+
+  security.pam.services.ly.enableGnomeKeyring = true;
+
+  services.gnome.gnome-keyring.enable = true;
+
+  services.dbus.packages = [pkgs.gnome-keyring pkgs.gcr];
+  xdg.portal.extraPortals = [pkgs.gnome-keyring];
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
