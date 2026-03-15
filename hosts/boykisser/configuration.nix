@@ -156,6 +156,15 @@
     packages = [
       "org.vinegarhq.Sober"
     ];
+
+    overrides = {
+      "org.vinegarhq.Sober" = {
+        Environment = {
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          __NV_PRIME_RENDER_OFFLOAD = "1";
+        };
+      };
+    };
   };
 
   services.blueman.enable = true;

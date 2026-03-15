@@ -17,6 +17,7 @@
     htop
     yazi
     mako
+    ouch
   ];
 
   services.udiskie = {
