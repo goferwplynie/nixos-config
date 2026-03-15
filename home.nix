@@ -8,6 +8,7 @@
   userId = "1000";
   scriptsDir = ./dotfiles/scripts;
   allScripts = builtins.attrNames (builtins.readDir scriptsDir);
+  username = "gofer";
 in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
@@ -25,12 +26,16 @@ in {
     defaultSymlinkPath = "${homePath}/.secrets";
     defaultSecretsMountPoint = "/run/user/${userId}/secrets.d";
     secrets = {
-      git_email = {};
-      github_token = {};
+      "git_email" = {
+        path = "${homePath}.secrets/git_email";
+      };
+      "github_token" = {
+        path = "${homePath}/.secrets/github_token";
+      };
     };
   };
 
-  home.username = "gofer";
+  home.username = "${username}";
   home.homeDirectory = homePath;
 
   # This value determines the Home Manager release that your configuration is
