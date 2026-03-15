@@ -9,6 +9,8 @@
     gopls
     gofumpt
 
+    go
+
     cargo
 
     jetbrains.idea
@@ -22,5 +24,7 @@
     protobuf
     protoc-gen-go
     protoc-gen-go-grpc
+
+    ripgrep
   ];
 }
