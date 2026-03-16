@@ -12,8 +12,10 @@
     go
 
     cargo
+    nodejs_latest
 
     jetbrains.idea
+    android-studio-full
     opencode
 
     podman-compose

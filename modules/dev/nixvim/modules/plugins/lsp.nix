@@ -7,6 +7,7 @@ in {
       inlayHints = true;
       servers = {
         lua_ls.enable = true;
+        nextls.enable = true;
         gopls = {
           enable = true;
           package = pkgs.gopls;
