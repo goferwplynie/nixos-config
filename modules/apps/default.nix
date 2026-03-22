@@ -18,6 +18,7 @@
     yazi
     mako
     ouch
+    obsidian
   ];
 
   services.udiskie = {
