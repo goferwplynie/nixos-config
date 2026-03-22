@@ -28,5 +28,6 @@
     protoc-gen-go-grpc
 
     ripgrep
+    websocat
   ];
 }
