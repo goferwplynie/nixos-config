@@ -8,11 +8,20 @@
     alejandra
     gopls
     gofumpt
+    golangci-lint
 
     go
+    python3
 
     cargo
     nodejs_latest
+    pnpm
+
+    air
+    templ
+    just
+    mise
+    cobra-cli
 
     jetbrains.idea
     android-studio-full

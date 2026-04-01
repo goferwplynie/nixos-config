@@ -69,12 +69,21 @@
   console.keyMap = "pl2";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.gofer = {
-    isNormalUser = true;
-    description = "cute femboy >w<";
-    extraGroups = ["networkmanager" "wheel" "video" "render" "adbusers" "podman"];
-    shell = pkgs.fish;
-    packages = with pkgs; [];
+  users.users = {
+    gofer = {
+      isNormalUser = true;
+      description = "cute femboy >w<";
+      extraGroups = ["networkmanager" "wheel" "video" "render" "adbusers" "podman"];
+      shell = pkgs.fish;
+      packages = with pkgs; [];
+    };
+    goferworker = {
+      isNormalUser = true;
+      description = "work account";
+      extraGroups = ["networkmanager" "wheel" "video" "render" "podman"];
+      shell = pkgs.fish;
+      packages = with pkgs; [];
+    };
   };
 
   # Allow unfree packages

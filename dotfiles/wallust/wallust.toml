@@ -6,3 +6,4 @@ palette = "dark16"
 waybar = { template = "waybar.css", target = "~/.cache/wallust/waybar.css" }
 kitty  = { template = "kitty.conf", target = "~/.cache/wallust/kitty.conf" }
 cava   = { template = "cava.conf", target = "~/.config/cava/config" }
+hyprland = { template = "hyprland.conf", target = "~/.config/hypr/colors.conf" }
