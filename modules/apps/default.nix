@@ -8,6 +8,7 @@
   ];
 
   home.packages = with pkgs; [
+    ventoy
     spotify
     kdePackages.dolphin
     kdePackages.kio-extras
@@ -19,6 +20,9 @@
     mako
     ouch
     obsidian
+    prismlauncher
+    r2modman
+    google-chrome
   ];
 
   services.udiskie = {

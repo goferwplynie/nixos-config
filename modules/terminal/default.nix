@@ -7,5 +7,7 @@
 
   home.packages = with pkgs; [
     tree
+    direnv
+    nix-direnv
   ];
 }

@@ -25,6 +25,7 @@
       ./modules/plugins/telescope.nix
       ./modules/plugins/trouble.nix
       ./modules/plugins/copilot.nix
+      ./modules/plugins/oil.nix
 
       ./modules/options.nix
       ./modules/keymaps.nix

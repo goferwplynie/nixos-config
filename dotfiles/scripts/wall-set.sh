@@ -6,8 +6,8 @@ fi
 WALLPAPER="$1"
 wallust run "$WALLPAPER"
 
-swww-daemon > /dev/null 2>&1 &
-swww img "$WALLPAPER" --transition-fps 60 --transition-type wipe --transition-duration 2
+awww-daemon > /dev/null 2>&1 &
+awww img "$WALLPAPER" --transition-fps 60 --transition-type wipe --transition-duration 2
 
 
 pkill waybar

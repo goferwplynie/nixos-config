@@ -32,6 +32,13 @@
   hardware.bluetooth.enable = true;
 
   networking.hostName = "cutie"; # Define your hostname.
+  networking.nameservers = ["1.1.1.1" "8.8.8.8"];
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 50000;
+      to = 65535;
+    }
+  ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -112,6 +119,8 @@
     gcc
     libsecret
     gnome-keyring
+
+    tailscale
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -168,6 +177,8 @@
     ];
   };
 
+  services.tailscale.enable = true;
+
   services.blueman.enable = true;
 
   services.pulseaudio.enable = false;
@@ -196,6 +207,9 @@
 
   services.dbus.packages = [pkgs.gnome-keyring pkgs.gcr];
   xdg.portal.extraPortals = [pkgs.gnome-keyring];
+
+  networking.firewall.checkReversePath = "loose";
+  networking.firewall.trustedInterfaces = ["tailscale0"];
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

@@ -26,6 +26,9 @@
       import pkgs {
         inherit system;
         config.allowUnfree = true;
+        permittedInsecurePackages = [
+          "ventoy-1.1.10"
+        ];
       };
     pkgs = mkPkgs nixpkgs;
   in {

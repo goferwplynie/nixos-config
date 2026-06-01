@@ -7,7 +7,6 @@
     which-key.enable = true;
     web-devicons.enable = true;
     lualine.enable = true;
-    oil.enable = true;
     autoclose.enable = true;
     guess-indent.enable = true;
   };

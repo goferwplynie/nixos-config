@@ -167,6 +167,12 @@
     };
   };
 
+  services.zerotierone = {
+    enable = true;
+  };
+
+  services.logmein-hamachi.enable = true;
+
   services.blueman.enable = true;
 
   services.pulseaudio.enable = false;

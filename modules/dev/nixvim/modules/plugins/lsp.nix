@@ -7,7 +7,6 @@ in {
       inlayHints = true;
       servers = {
         lua_ls.enable = true;
-        nextls.enable = true;
         gopls = {
           enable = true;
           package = pkgs.gopls;
@@ -29,6 +28,7 @@ in {
             nixvim.expr = "(builtins.getFlake \"${flakePath}\").homeConfigurations.gofer.options.programs.nixvim";
           };
         };
+        pyright.enable = true;
       };
 
       keymaps = {

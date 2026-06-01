@@ -16,6 +16,7 @@
     cargo
     nodejs_latest
     pnpm
+    uv
 
     air
     templ
@@ -39,4 +40,6 @@
     ripgrep
     websocat
   ];
+
+  programs.java.enable = true;
 }
